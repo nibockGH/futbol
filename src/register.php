@@ -1,4 +1,7 @@
 <?php
+// Incluir PHPMailer autoload
+require '../vendor/autoload.php';
+
 // Datos de conexión a la base de datos
 $servername = "localhost";
 $username = "root";
@@ -34,6 +37,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
 
         if ($conn->query($sql) === TRUE) {
+            // Enviar correo de confirmación
+            $mail = new PHPMailer\PHPMailer\PHPMailer();
+            try {
+                // Configuración del servidor de correos
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com'; // Cambia esto por tu servidor SMTP
+                $mail->SMTPAuth = true;
+                $mail->Username = 'nicobock15@gmail.com'; // Cambia esto por tu correo SMTP
+                $mail->Password = 'izra vmwo lnop rpad'; // Cambia esto por tu contraseña SMTP
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+
+                // Configuración del correo
+                $mail->setFrom('tu-correo@tu-dominio.com', 'Futbol App');
+                $mail->addAddress($email, $name);
+                $mail->Subject = 'Registro Exitoso';
+                $mail->Body = 'Hola ' . $name . ', tu registro ha sido exitoso. Bienvenido a nuestra plataforma.';
+
+                $mail->send();
+            } catch (Exception $e) {
+                $error = "No se pudo enviar el correo de confirmación. Mailer Error: {$mail->ErrorInfo}";
+            }
+
             // Redirigir al usuario a la página de inicio de sesión
             header("Location: login.php");
             exit();

@@ -1,3 +1,55 @@
+<?php
+session_start();
+require '../vendor/autoload.php';
+
+// Datos de conexión a la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "users_db";
+
+// Crear la conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+$error = "";
+
+// Verificar si el formulario fue enviado
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Obtener datos del formulario
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Buscar el usuario en la base de datos
+    $sql = "SELECT * FROM users WHERE email='$email'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Obtener el hash de la contraseña almacenada
+        $row = $result->fetch_assoc();
+        $hash = $row['password'];
+        
+        // Verificar la contraseña
+        if (password_verify($password, $hash)) {
+            // Redirigir al usuario a la página principal o a donde quieras
+            header("Location: buscarrival.php");
+            exit();
+        } else {
+            $error = "Contraseña incorrecta";
+        }
+    } else {
+        $error = "No se encontró una cuenta con ese correo electrónico";
+    }
+}
+
+// Cerrar la conexión
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +61,13 @@
 <body class="flex items-center justify-center h-screen bg-gray-100">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
         <h2 class="text-2xl font-bold mb-6 text-center">Iniciar sesión</h2>
-        <form action="loginn.php" method="POST">
+        
+        <!-- Mostrar mensaje de error si existe -->
+        <?php if (!empty($error)): ?>
+            <p class="mb-4 text-red-500"><?php echo $error; ?></p>
+        <?php endif; ?>
+
+        <form action="login.php" method="POST">
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 font-semibold mb-2">Correo electrónico</label>
                 <input type="email" name="email" id="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
