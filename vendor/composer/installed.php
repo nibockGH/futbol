@@ -1,30 +1,21 @@
 <?php return array(
     'root' => array(
-        'name' => '__root__',
+        'name' => 'tu-usuario/tu-proyecto',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'e0364057b593b1267ce36afd9b9a8b0812c35ff2',
+        'reference' => '7ed4f037b73d0443cd2601b5308652dcbfb8189e',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        '__root__' => array(
+        'tu-usuario/tu-proyecto' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'e0364057b593b1267ce36afd9b9a8b0812c35ff2',
+            'reference' => '7ed4f037b73d0443cd2601b5308652dcbfb8189e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'phpmailer/phpmailer' => array(
-            'pretty_version' => 'v6.9.1',
-            'version' => '6.9.1.0',
-            'reference' => '039de174cd9c17a8389754d3b877a2ed22743e18',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
