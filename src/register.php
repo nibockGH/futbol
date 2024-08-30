@@ -1,12 +1,11 @@
 <?php
-// Incluir PHPMailer autoload
 require '../vendor/autoload.php';
 
 // Datos de conexión a la base de datos
-$servername = "localhost";
-$username = "root";
+$servername = "127.0.0.1";
+$username = "pma";
 $password = "";
-$dbname = "users_db";
+$dbname = "user_db";
 
 // Crear la conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -81,7 +80,12 @@ $conn->close();
     <title>Registro de Usuario</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="flex items-center justify-center h-screen bg-gray-100">
+<style>
+    body {
+            background-color: #989da6; /* color zinc-300 de Tailwind */
+        }
+</style>
+<body class="flex items-center justify-center h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
         <h2 class="text-2xl font-bold mb-6 text-center">Crear una cuenta</h2>
         
@@ -105,6 +109,7 @@ $conn->close();
             </div>
             <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">Registrarse</button>
         </form>
+        <p class="mt-4 text-center text-gray-600">¿Olvidaste tu contraseña? <a href="recuperarcontraseña.php" class="text-green-500 hover:underline">Recuperar Contraseña</a></p>
         <p class="mt-4 text-center text-gray-600">¿Ya tienes una cuenta? <a href="login.php" class="text-green-500 hover:underline">Inicia sesión aquí</a></p>
     </div>
 </body>

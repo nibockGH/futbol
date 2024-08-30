@@ -1,11 +1,17 @@
 {
   "name": "futbol",
   "version": "1.0.0",
-  "description": "",
+  "description": "Proyecto de Futbol con Tailwind CSS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:css": "tailwindcss -i ./src/styles.css -o ./public/styles.css",
+    "watch:css": "tailwindcss -i ./src/styles.css -o ./public/styles.css --watch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.0.0",
+    "postcss": "^8.0.0",
+    "tailwindcss": "^3.4.10"
+  }
 }
